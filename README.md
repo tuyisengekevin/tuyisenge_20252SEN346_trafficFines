@@ -1,4 +1,4 @@
-# Public Traffic Fines Management System
+# Parking Violations Analytics and Fine Management System
 
 **Student:** TUYISENGE Kevin  
 **Student ID:** 20252SEN346  
@@ -6,63 +6,67 @@
 **Academic Year:** 2026–2027, Semester I
 
 ## 1. Project overview
-The Public Traffic Fines Management System is an academic Oracle database project that organizes traffic violation records, fine assessments and payment transactions. It will help an administrator review violation patterns, track assessed fines, monitor paid and outstanding balances, and generate summary reports.
+The Parking Violations Analytics and Fine Management System is an academic Oracle database project. It will organize and analyze public parking-violation information and demonstrate how fine assessments and payment records can be managed in a relational database.
 
 This is a prototype for academic demonstration. It is not an official government payment service and will not process real payments.
 
 ## 2. Problem statement
-Traffic enforcement produces large volumes of violation records. When violation information, fine assessments and payment status are difficult to review together, administrators may struggle to summarize violations, identify common violation patterns, and monitor outstanding balances. The project will build a structured Oracle database and PL/SQL routines to manage these records and provide clear reporting.
+Parking enforcement produces records that can be analyzed to understand violation patterns by category, time and location. This project will build a structured Oracle database and PL/SQL routines to organize the available public violation data and demonstrate fine-management operations.
 
 ## 3. Objectives
-**Main objective:** To design and implement an Oracle database application for recording and analyzing traffic violations, fine assessments and payment status.
+**Main objective:** To design and implement an Oracle database application for organizing and analyzing parking-violation information, with a demonstration of fine and payment management.
 
 **Specific objectives**
-1. Import and clean a real, anonymized public traffic-violations dataset.
-2. Normalize the data into relational tables up to Third Normal Form (3NF).
-3. Develop PL/SQL procedures, functions, cursors, packages and triggers for core operations and validation.
-4. Record and monitor fine assessments and payment transactions, using clearly labelled simulated payment data where the public dataset has no payment information.
-5. Connect Power BI to the Oracle database to present interactive traffic and fine-management indicators.
+1. Obtain and inspect an official public parking-violations dataset.
+2. Check the source fields, record count, licence/terms of use and privacy implications before importing data.
+3. Normalize suitable data into relational tables up to Third Normal Form (3NF).
+4. Develop PL/SQL procedures, functions, cursors, packages and triggers for core operations and validation.
+5. Demonstrate fine assessments and payment transactions using clearly labelled simulated records if the public dataset does not contain those details.
+6. Connect Power BI to the Oracle database for interactive reporting.
 
 ## 4. Data source and scope
-**Primary dataset:** Montgomery County, Maryland – Traffic Violations (official public open-data dataset).  
-**Dataset page:** https://catalog.data.gov/dataset/traffic-violations  
-**Direct CSV export:** https://data.montgomerycountymd.gov/api/v3/views/4mse-ku6q/export.csv?accessType=DOWNLOAD
+**Proposed primary dataset:** District of Columbia – Parking Violations Issued (September 2026).
 
-The official catalogue describes the dataset as electronic traffic violations issued in Montgomery County, updated daily, and states that identifying information about vehicles, vehicle owners and officers is not published. The FY2026 county open-data report describes it as containing over two million rows.
+- **Official dataset page:** https://opendata.dc.gov/datasets/DCGIS::parking-violations-issued-in-september-2026
+- **Government catalogue:** https://catalog.data.gov/dataset/parking-violations-issued-in-september-2026
+- **CSV download:** https://opendata.dc.gov/api/download/v1/items/52bcc739569546a7a6cea61ff7373831/csv?layers=8
 
-For a manageable academic implementation, a documented subset of the public records will be loaded. Fine assessments and payment transactions will be simulated for demonstration because the selected public violation dataset does not itself provide actual payment transactions. Simulated values will never be presented as official records.
+The dataset is described as aggregated parking-violation information. It is therefore intended to support analysis of violation patterns, not to serve as a complete register of individual summonses or real payment transactions. The downloaded CSV must be inspected before its exact columns, record count, coverage and suitability are confirmed.
+
+The project will not claim that aggregate counts are individual fine records. Fine assessments and payment transactions will be simulated separately for database-operation demonstrations and clearly labelled as simulated. No simulated values will be presented as official government records.
 
 ## 5. Planned database tables
-- **VIOLATION_TYPE** – violation categories and descriptions.
-- **LOCATION** – recorded violation locations or areas.
-- **TRAFFIC_VIOLATION** – date, time, violation type, location and available source attributes.
-- **FINE_ASSESSMENT** – assessed amount, assessment date, due date and status; demonstration data.
-- **PAYMENT** – payment amount, date, method and reference; simulated demonstration data.
+The final table design will be decided after inspecting the downloaded CSV and identifying its actual fields and relationships. Possible entities for the demonstration include:
+- **VIOLATION_CATEGORY** – available violation categories.
+- **LOCATION** – available geographic areas or locations, if provided.
+- **VIOLATION_SUMMARY** – source counts and reporting period, if the dataset is aggregated.
+- **FINE_ASSESSMENT** – demonstration fine amount, assessment date and status.
+- **PAYMENT** – simulated payment amount, date, method and reference.
 
-Primary and foreign keys will enforce relationships. The final design will be refined during Phase II after inspecting the actual dataset columns and normalization dependencies.
+Primary and foreign keys will enforce relationships. The design will avoid inventing source attributes that are not present in the downloaded dataset.
 
 ## 6. Planned PL/SQL features
-- Procedures to insert and update violation and fine records.
-- A procedure to record a payment and update the related fine balance/status.
+- Procedures to insert and update project records.
+- A procedure to record a simulated payment and update the related demonstration fine balance/status.
 - Functions to calculate outstanding balances and summarize fines.
-- Explicit or parameterized cursors to produce violation and payment reports.
+- Cursors to produce violation and payment reports.
 - Packages to group related fine-management operations.
 - Triggers to validate transactions and maintain audit information.
 - Exception handling for invalid IDs, invalid amounts, duplicate records and overpayments.
 
-Business rules will remain in PL/SQL; the dashboard will display and interact with database results.
+Business rules will remain in PL/SQL; the dashboard will display database results.
 
 ## 7. Innovation
 **Selected option:** Analytics dashboard.  
 **Tool:** Microsoft Power BI connected to the Oracle database.
 
-The dashboard will provide interactive KPI cards, filters and charts for violation counts, violation categories, time/location patterns, assessed fines, payments and outstanding balances. It will use data from the project Oracle database rather than static mock-ups. Payment-related indicators will be based on clearly identified simulated payment records.
+The dashboard will provide interactive indicators and charts based on the fields confirmed in the source dataset. It may also display clearly separated demonstration indicators for simulated fine assessments and payments. It will not present simulated payment information as official source data.
 
 ## 8. Expected results
-A normalized Oracle database, validated sample data, reusable PL/SQL program units, audit/validation rules, and a working Power BI dashboard connected to Oracle.
+A normalized Oracle database, documented and validated source data, reusable PL/SQL program units, audit/validation rules, and a Power BI dashboard connected to Oracle.
 
 ## 9. Limitations
-The dataset represents Montgomery County, Maryland, not Rwanda. It is used because it is a real public dataset with a large number of records and no published identifying vehicle/owner/officer information. The prototype does not claim to represent Rwandan traffic law, fine amounts or payment operations. Any fine and payment data created for the prototype are simulated.
+The proposed dataset represents Washington, DC, not Rwanda. It is a public dataset for academic analysis and does not establish Rwandan traffic or parking laws. Because the dataset is described as aggregated, it may not support individual-level fine processing. The actual CSV must be inspected before the final scope and database schema are approved. Any fine and payment records created for demonstrations will be simulated.
 
 ## 10. References
 See [Research Log](docs/research/research_log.md) for the research sources and findings.
