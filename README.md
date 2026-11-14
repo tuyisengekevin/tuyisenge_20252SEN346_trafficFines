@@ -1,73 +1,109 @@
-# Parking Violations Analytics System
+# Parking Violations Analytics and Fine Management System
 
 **Student:** TUYISENGE Kevin  
 **Student ID:** 20252SEN346  
 **Course:** INSY 8311 – Database Development with PL/SQL  
 **Academic Year:** 2026–2027, Semester I
 
-## Project overview
+## 1. Project overview
 
-The Parking Violations Analytics System is an academic Oracle database project for organizing and analyzing public parking-violation information. The final database design and analytics scope will follow the actual fields and level of detail in the downloaded source dataset.
+The Parking Violations Analytics and Fine Management System is an academic database project that will organize and analyze public parking-violation records using Oracle Database and PL/SQL. It will support structured storage, data validation, analytical queries and interactive reporting.
 
-This is an academic prototype. It is not an official government ticketing, adjudication or payment service and will not process real payments.
+This project is an academic prototype. It is not an official government ticketing or adjudication service and will not collect or process real payments. Any payment-related demonstration will be clearly identified as simulated and will not be presented as an actual transaction.
 
-## Problem statement
+## 2. Problem statement
 
-Parking enforcement data can be organized and analyzed to understand violation patterns by category, reporting period and location where those attributes are available. This project will demonstrate relational database design, Oracle PL/SQL programming and reporting.
+Parking-violation records contain information that can be analyzed to identify patterns by violation category, date, issuing agency and location. When the records are not organized for analysis, it can be difficult to summarize violation activity and examine recorded fine and payment amounts.
 
-## Objectives
+This project will design a relational database and reporting solution based on the fields that are actually available and sufficiently complete in the selected public dataset.
 
-1. Obtain and inspect a public parking-violations dataset.
-2. Verify its source, fields, record count, data granularity and terms of use.
-3. Design normalized relational tables based on verified source data.
-4. Develop PL/SQL procedures, functions, cursors, packages, triggers and exception handling.
-5. Produce useful reports from the stored data.
-6. Connect Microsoft Power BI to Oracle for interactive reporting.
+## 3. Project objectives
 
-## Data source
+1. Inspect and document a public parking-violations dataset, including its source, structure, record count, data quality and licence.
+2. Design normalized relational tables that reflect the verified data.
+3. Implement database operations and business rules using Oracle PL/SQL.
+4. Produce reports about violation categories, issuing agencies, dates, locations and recorded fine/payment amounts where the data supports them.
+5. Develop an interactive analytics dashboard using Microsoft Power BI connected to Oracle Database.
 
-**Proposed dataset:** District of Columbia – Parking Violations Issued in September 2026.
+## 4. Dataset and data quality
+
+**Dataset:** District of Columbia – Parking Violations Issued in September 2026.
 
 - [DC Open Data dataset page](https://opendata.dc.gov/datasets/DCGIS::parking-violations-issued-in-september-2026)
 - [Data.gov catalogue entry](https://catalog.data.gov/dataset/parking-violations-issued-in-september-2026)
+- **Geographical scope:** Washington, DC, USA.
+- **Inspected CSV:** `Parking_Violations_Issued_in_September_2026.csv`
+- **Inspected size:** 89,078 records and 31 columns.
+- **Date coverage:** 1–30 September 2026.
+- **Duplicate checks:** No completely duplicated rows, duplicate ticket numbers or duplicate OBJECTIDs were found in the inspected file.
 
-The CSV must be inspected before its exact columns, record count, aggregation level and suitability are confirmed. Do not interpret aggregated counts as individual citations or real payment transactions.
+### Data limitations
 
-The original downloaded CSV belongs in `data/raw/` once it has been added to the repository.
+The inspection found that `VEHICLE_TYPE` is entirely empty. `PLATE_STATE`, `DISPOSITION_DESC` and `DISPOSITION_DATE` have very high levels of missing data. Several location-coordinate fields also contain some missing values. These fields will be excluded from analysis or handled carefully where their completeness is insufficient.
 
-## Planned database and PL/SQL work
+The downloaded CSV contains ticket-level records and fields such as `TICKET_NUMBER`, while the Data.gov catalogue description describes a summarized Vision Zero dataset. This difference in granularity will be documented and considered when finalizing the database design.
 
-The final entities and relationships will be determined from the verified CSV structure. Planned PL/SQL work includes data validation, procedures, functions, cursors, packages, triggers, exception handling and audit support where appropriate.
+The dataset contains ticket identifiers. A reviewed/anonymized working copy must be used for public repository uploads and demonstrations; do not publish unnecessary ticket-level identifiers. The dataset's fine and total-paid fields are recorded amounts, not a complete payment transaction history.
 
-## Innovation
+## 5. Planned database and PL/SQL implementation
 
-**Selected option:** Analytics dashboard.  
-**Tool:** Microsoft Power BI connected to Oracle.
+The final tables and relationships will be designed after the dataset review and normalization analysis. The design will use only attributes supported by the source data. Potential subject areas include violation records, violation categories, issuing agencies and recorded fine/disposition information, subject to the final schema.
 
-The dashboard will use only attributes confirmed in the dataset.
+Planned PL/SQL techniques include:
 
-## Phase 0 – Research and Proposal
+- Procedures and functions for reusable database operations and calculations.
+- Cursors for processing and reporting on selected records.
+- Packages to group related program units.
+- Triggers for appropriate validation, auditing or business rules.
+- Exception handling for invalid operations and unexpected conditions.
+- SQL queries and views for analytical reporting.
 
-Phase 0 documents are organized in [docs/phase0/](docs/phase0/). The research log is available at [Research Log](docs/phase0/research_log.md).
+These are planned features; their implementation and testing will be documented as the project progresses.
 
-Upload the approved proposal PDF and presentation PowerPoint into this folder.
+## 6. Innovation
 
-## Phase I - Business Process Modeling
+**Innovation option:** Interactive analytics dashboard.  
+**Planned tool:** Microsoft Power BI connected to Oracle Database.
 
-**Selected process:** To be documented for the Parking Violations Analytics System.  
-**Modeling tool:** To be confirmed.  
-**Published diagram link:** To be added after creating and publishing the diagram in draw.io, Lucidchart or Canva.  
-**Supporting explanation:** [Business Process Explanation](docs/business%20process/business_process_explanation.pdf) (upload after completing the one-page explanation).  
-**Diagram PDF:** [Business Process Diagram](docs/business%20process/business_process_diagram.pdf) (upload after exporting the diagram).
+The dashboard is intended to let a user interact with reports based on the data stored in Oracle. The connection and working demonstration will be developed and verified during implementation. A static screenshot alone will not be treated as proof of a working integration.
 
-The original editable diagram must be retained in the selected modeling tool. The published diagram link and GitHub repository link are separate deliverables.
+## 7. Project documentation
 
-## Repository structure
+| Document | Location |
+|---|---|
+| Research log | [`docs/research/research_log.md`](docs/research/research_log.md) |
+| Project proposal | `docs/proposal/project_proposal.pdf` |
+| Project presentation | `docs/presentation/project_presentation.pdf` |
+| Innovation documentation | `innovation/` |
+| Reviewed dataset copy | `data/raw/` |
+| Phase I business-process materials | [`docs/business process/`](docs/business%20process/) |
 
-- `docs/phase0/` – research log, proposal and presentation.
-- `docs/business process/` – Phase I diagram export and one-page explanation.
-- `data/raw/` – original downloaded dataset.
+The proposal, presentation and reviewed dataset will be added when they are finalized. The `.gitkeep` files currently preserve the empty upload folders.
 
-## References
+## 8. Repository structure
 
-See the [Research Log](docs/phase0/research_log.md) for the sources and research notes.
+```text
+tuyisenge_20252SEN346_trafficFines/
+├── README.md
+├── docs/
+│   ├── research/
+│   │   └── research_log.md
+│   ├── proposal/
+│   │   └── .gitkeep
+│   ├── presentation/
+│   │   └── .gitkeep
+│   ├── business process/
+│   │   └── existing Phase I materials
+│   └── phase0/
+│       └── existing folder notes
+├── data/
+│   └── raw/
+│       ├── .gitkeep
+│       └── README.md
+└── innovation/
+    └── .gitkeep
+```
+
+## 9. References
+
+The research sources, dataset references and research notes are recorded in the [Phase 0 Research Log](docs/research/research_log.md).
