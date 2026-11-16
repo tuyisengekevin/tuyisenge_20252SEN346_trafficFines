@@ -9,11 +9,11 @@
 
 The Parking Violations Analytics and Fine Management System is an academic database project that will organize and analyze public parking-violation records using Oracle Database and PL/SQL. It will support structured storage, data validation, analytical queries and interactive reporting.
 
-This project is an academic prototype. It is not an official government ticketing or adjudication service and will not collect or process real payments. Any payment-related demonstration will be clearly identified as simulated and will not be presented as an actual transaction.
+This is an academic prototype. It is not an official government ticketing or adjudication service and will not collect or process real payments. Any payment-related demonstration will be clearly identified as simulated and kept separate from the source records.
 
 ## 2. Problem statement
 
-Parking-violation records contain information that can be analyzed to identify patterns by violation category, date, issuing agency and location. When the records are not organized for analysis, it can be difficult to summarize violation activity and examine recorded fine and payment amounts.
+Parking-violation records contain information that can be analyzed to identify patterns by violation category, date, issuing agency and location. When records are not organized for analysis, it can be difficult to summarize violation activity and examine recorded fine and payment amounts.
 
 This project will design a relational database and reporting solution based on the fields that are actually available and sufficiently complete in the selected public dataset.
 
@@ -31,19 +31,21 @@ This project will design a relational database and reporting solution based on t
 
 - [DC Open Data dataset page](https://opendata.dc.gov/datasets/DCGIS::parking-violations-issued-in-september-2026)
 - [Data.gov catalogue entry](https://catalog.data.gov/dataset/parking-violations-issued-in-september-2026)
+- [Raw CSV uploaded to this repository](data/raw/parking_violations.csv)
 - **Geographical scope:** Washington, DC, USA.
-- **Inspected CSV:** `Parking_Violations_Issued_in_September_2026.csv`
+- **Inspected file:** `data/raw/parking_violations.csv`
 - **Inspected size:** 89,078 records and 31 columns.
-- **Date coverage:** 1–30 September 2026.
+- **Date coverage:** September 1–30, 2026.
 - **Duplicate checks:** No completely duplicated rows, duplicate ticket numbers or duplicate OBJECTIDs were found in the inspected file.
+- **Licence:** The dataset catalogue identifies the data as Creative Commons Attribution 4.0 International (CC BY 4.0). Credit the District Department of Transportation and link to the source when reusing it.
 
-### Data limitations
+### Data limitations and handling
 
-The inspection found that `VEHICLE_TYPE` is entirely empty. `PLATE_STATE`, `DISPOSITION_DESC` and `DISPOSITION_DATE` have very high levels of missing data. Several location-coordinate fields also contain some missing values. These fields will be excluded from analysis or handled carefully where their completeness is insufficient.
+The inspection found that `VEHICLE_TYPE` is entirely empty. `PLATE_STATE`, `DISPOSITION_DESC` and `DISPOSITION_DATE` have very high levels of missing data. Several location-coordinate fields also contain some missing values. These fields must be excluded from analysis or handled as optional where their completeness is insufficient; missing values must not be invented.
 
-The downloaded CSV contains ticket-level records and fields such as `TICKET_NUMBER`, while the Data.gov catalogue description describes a summarized Vision Zero dataset. This difference in granularity will be documented and considered when finalizing the database design.
+The downloaded CSV contains ticket-level records and fields such as `TICKET_NUMBER`, while the public catalogue description describes a summarized Vision Zero dataset. This difference in granularity is documented in the research log and will be considered when finalizing the database design.
 
-The dataset contains ticket identifiers. A reviewed/anonymized working copy must be used for public repository uploads and demonstrations; do not publish unnecessary ticket-level identifiers. The dataset's fine and total-paid fields are recorded amounts, not a complete payment transaction history.
+The CSV contains citation identifiers. Treat these identifiers carefully and avoid displaying them in public screenshots or dashboard demonstrations unless there is a justified need. Review the dataset terms and privacy implications before redistributing the raw file. The `FINE_AMOUNT` and `TOTAL_PAID` columns are recorded amount fields; they do not establish a complete payment transaction history.
 
 ## 5. Planned database and PL/SQL implementation
 
@@ -65,55 +67,49 @@ These are planned features; their implementation and testing will be documented 
 **Innovation option:** Interactive analytics dashboard.  
 **Planned tool:** Microsoft Power BI connected to Oracle Database.
 
-The dashboard is intended to let a user interact with reports based on the data stored in Oracle. The connection and working demonstration will be developed and verified during implementation. A static screenshot alone will not be treated as proof of a working integration.
+The dashboard is intended to let a user interact with reports based on data stored in Oracle. The connection and working demonstration will be developed and verified during implementation. A static screenshot alone will not be treated as proof of a working integration.
 
 ## 7. Phase I - Business Process Modeling
 
 **Business process:** Parking Violation Data Processing, Fine Monitoring and Analytics Process.
 
 - **Modeling tool:** diagrams.net (draw.io).
-- **Published diagram:** [View the published business process diagram](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&dark=auto#G1rNOUvbag9rQvy3-lv7Qx8h3gcq7LJOoo).
+- **Published editable/viewer diagram:** [View the published business process diagram](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&dark=auto#G1rNOUvbag9rQvy3-lv7Qx8h3gcq7LJOoo).
 - **Access verification:** The published viewer link was tested in a Chrome Incognito window and the diagram opened without signing in.
-- **Business process explanation:** [business_process_explanation.pdf](docs/business%20process/business_process_explanation.pdf)
-- **Diagram PDF:** [business_process_diagram.pdf](docs/business%20process/business_process_diagram.pdf)
+- **Diagram PDF:** [business_process_diagram.pdf](docs/business%20process/business_process_diagram.pdf).
+- **Business process explanation:** [business_process_explanation.pdf](docs/business%20process/business_process_explanation.pdf).
 
-## 8. Project documentation
+## 8. Project documents and dataset
 
-| Document | Location |
+| Item | Repository location |
 |---|---|
-| Research log | [`docs/research/research_log.md`](docs/research/research_log.md) |
-| Project proposal | `docs/proposal/project_proposal.pdf` |
-| Project presentation | `docs/presentation/project_presentation.pdf` |
-| Innovation documentation | `innovation/` |
-| Reviewed dataset copy | `data/raw/` |
-| Phase I business-process materials | [`docs/business process/`](docs/business%20process/) |
-
-The proposal, presentation and reviewed dataset will be added when they are finalized. The `.gitkeep` files currently preserve the empty upload folders.
+| Project proposal (PDF) | [docs/proposal/project_proposal.pdf](docs/proposal/project_proposal.pdf) |
+| Project presentation (PowerPoint) | [docs/presentation/project_presentation.pptx](docs/presentation/project_presentation.pptx) |
+| Research log | [docs/research/research_log.md](docs/research/research_log.md) |
+| Raw dataset CSV | [data/raw/parking_violations.csv](data/raw/parking_violations.csv) |
+| Business-process diagram (PDF) | [docs/business process/business_process_diagram.pdf](docs/business%20process/business_process_diagram.pdf) |
+| Business-process explanation (PDF) | [docs/business process/business_process_explanation.pdf](docs/business%20process/business_process_explanation.pdf) |
 
 ## 9. Repository structure
 
 ```text
 tuyisenge_20252SEN346_trafficFines/
 ├── README.md
-├── docs/
-│   ├── research/
-│   │   └── research_log.md
-│   ├── proposal/
-│   │   └── .gitkeep
-│   ├── presentation/
-│   │   └── .gitkeep
-│   ├── business process/
-│   │   └── existing Phase I materials
-│   └── phase0/
-│       └── existing folder notes
 ├── data/
 │   └── raw/
-│       ├── .gitkeep
-│       └── README.md
-└── innovation/
-    └── .gitkeep
+│       └── parking_violations.csv
+└── docs/
+    ├── proposal/
+    │   └── project_proposal.pdf
+    ├── presentation/
+    │   └── project_presentation.pptx
+    ├── research/
+    │   └── research_log.md
+    └── business process/
+        ├── business_process_diagram.pdf
+        └── business_process_explanation.pdf
 ```
 
 ## 10. References
 
-The research sources, dataset references and research notes are recorded in the [Phase 0 Research Log](docs/research/research_log.md).
+The research sources, dataset references, data-quality checks and research notes are recorded in the [Research Log](docs/research/research_log.md).
