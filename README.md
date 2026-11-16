@@ -75,7 +75,7 @@ The dashboard is intended to let a user interact with reports based on the data 
 - **Published diagram:** [View the published business process diagram](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&dark=auto#G1rNOUvbag9rQvy3-lv7Qx8h3gcq7LJOoo).
 - **Access verification:** The published viewer link was tested in a Chrome Incognito window and the diagram opened without signing in.
 - **Business process explanation:** [business_process_explanation.pdf](docs/business%20process/business_process_explanation.pdf)
-- **Diagram PDF:** Not uploaded yet. Export the published diagram as `business_process_diagram.pdf` and add it to `docs/business process/`.
+- **Diagram PDF:** [business_process_diagram.pdf](docs/business%20process/business_process_diagram.pdf)
 
 ## 8. Project documentation
 
