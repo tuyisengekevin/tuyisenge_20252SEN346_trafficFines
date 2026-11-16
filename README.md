@@ -67,7 +67,17 @@ These are planned features; their implementation and testing will be documented 
 
 The dashboard is intended to let a user interact with reports based on the data stored in Oracle. The connection and working demonstration will be developed and verified during implementation. A static screenshot alone will not be treated as proof of a working integration.
 
-## 7. Project documentation
+## 7. Phase I - Business Process Modeling
+
+**Business process:** Parking Violation Data Processing, Fine Monitoring and Analytics Process.
+
+- **Modeling tool:** diagrams.net (draw.io).
+- **Published diagram:** [View the published business process diagram](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&dark=auto#G1rNOUvbag9rQvy3-lv7Qx8h3gcq7LJOoo).
+- **Access verification:** The published viewer link was tested in a Chrome Incognito window and the diagram opened without signing in.
+- **Business process explanation:** The one-page explanation PDF will be linked here after it is uploaded to the repository.
+- **Diagram PDF:** The exported diagram PDF will be linked here after it is uploaded to the repository.
+
+## 8. Project documentation
 
 | Document | Location |
 |---|---|
@@ -80,7 +90,7 @@ The dashboard is intended to let a user interact with reports based on the data 
 
 The proposal, presentation and reviewed dataset will be added when they are finalized. The `.gitkeep` files currently preserve the empty upload folders.
 
-## 8. Repository structure
+## 9. Repository structure
 
 ```text
 tuyisenge_20252SEN346_trafficFines/
@@ -104,6 +114,6 @@ tuyisenge_20252SEN346_trafficFines/
     └── .gitkeep
 ```
 
-## 9. References
+## 10. References
 
 The research sources, dataset references and research notes are recorded in the [Phase 0 Research Log](docs/research/research_log.md).
