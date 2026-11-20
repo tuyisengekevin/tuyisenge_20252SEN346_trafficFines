@@ -1,0 +1,71 @@
+digraph ERD {
+  graph [rankdir=LR, splines=ortho, nodesep=0.55, ranksep=1.15, pad=0.35, bgcolor="white", label="PARKING VIOLATIONS ANALYTICS AND FINE MANAGEMENT SYSTEM — LOGICAL ERD (3NF)", labelloc=t, fontsize=22, fontname="Arial", size="16,10!"];
+  node [shape=plain, fontname="Arial", fontsize=11];
+  edge [fontname="Arial", fontsize=10, color="#34495e", penwidth=1.6, dir=both, arrowtail=crowodot, arrowhead=tee];
+
+  ISSUING_AGENCY [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+      <TR><TD BGCOLOR="#dbeafe"><B>ISSUING_AGENCY</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK  AGENCY_CODE</TD></TR>
+      <TR><TD ALIGN="LEFT">    AGENCY_NAME</TD></TR>
+      <TR><TD ALIGN="LEFT">UQ  AGENCY_SHORT</TD></TR>
+    </TABLE>>];
+  VIOLATION_TYPE [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+      <TR><TD BGCOLOR="#dbeafe"><B>VIOLATION_TYPE</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK  VIOLATION_TYPE_DESC</TD></TR>
+    </TABLE>>];
+  VIOLATION [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+      <TR><TD BGCOLOR="#dbeafe"><B>VIOLATION</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK  VIOLATION_CODE</TD></TR>
+      <TR><TD ALIGN="LEFT">    VIOLATION_PROC_DESC</TD></TR>
+    </TABLE>>];
+  DISPOSITION [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+      <TR><TD BGCOLOR="#dbeafe"><B>DISPOSITION</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK  DISPOSITION_CODE</TD></TR>
+      <TR><TD ALIGN="LEFT">    DISPOSITION_TYPE</TD></TR>
+      <TR><TD ALIGN="LEFT">    DISPOSITION_DESC (optional)</TD></TR>
+    </TABLE>>];
+  PARKING_TICKET [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+      <TR><TD BGCOLOR="#fee2e2"><B>PARKING_TICKET</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK  TICKET_NUMBER</TD></TR>
+      <TR><TD ALIGN="LEFT">UQ  SOURCE_OBJECT_ID</TD></TR>
+      <TR><TD ALIGN="LEFT">FK  VIOLATION_TYPE_DESC</TD></TR>
+      <TR><TD ALIGN="LEFT">FK  AGENCY_CODE</TD></TR>
+      <TR><TD ALIGN="LEFT">FK  VIOLATION_CODE</TD></TR>
+      <TR><TD ALIGN="LEFT">FK  DISPOSITION_CODE</TD></TR>
+      <TR><TD ALIGN="LEFT">FK  LOCATION_ID (optional)</TD></TR>
+      <TR><TD ALIGN="LEFT">    ISSUE_DATE / ISSUE_TIME</TD></TR>
+      <TR><TD ALIGN="LEFT">    FINE_AMOUNT / TOTAL_PAID</TD></TR>
+    </TABLE>>];
+  LOCATION [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+      <TR><TD BGCOLOR="#dcfce7"><B>LOCATION</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK  LOCATION_ID</TD></TR>
+      <TR><TD ALIGN="LEFT">UQ  LOCATION_TEXT</TD></TR>
+      <TR><TD ALIGN="LEFT">    MAR_ID / XCOORD / YCOORD</TD></TR>
+      <TR><TD ALIGN="LEFT">    LATITUDE / LONGITUDE</TD></TR>
+    </TABLE>>];
+  TICKET_PENALTY [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+      <TR><TD BGCOLOR="#fef3c7"><B>TICKET_PENALTY</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK, FK  TICKET_NUMBER</TD></TR>
+      <TR><TD ALIGN="LEFT">PK      PENALTY_STAGE</TD></TR>
+      <TR><TD ALIGN="LEFT">        PENALTY_AMOUNT</TD></TR>
+    </TABLE>>];
+
+  {rank=same; ISSUING_AGENCY; VIOLATION_TYPE; VIOLATION; DISPOSITION;}
+  {rank=same; LOCATION; TICKET_PENALTY;}
+  ISSUING_AGENCY -> PARKING_TICKET;
+  VIOLATION_TYPE -> PARKING_TICKET;
+  VIOLATION -> PARKING_TICKET;
+  DISPOSITION -> PARKING_TICKET;
+  LOCATION -> PARKING_TICKET [arrowtail=crowodot, arrowhead=odottee];
+  PARKING_TICKET -> TICKET_PENALTY [arrowtail=crow, arrowhead=tee];
+
+  legend [shape=note, fontsize=10, label="KEY: PK = Primary Key   FK = Foreign Key   UQ = Unique alternate key\nCrow's-foot = many; bar = one; circle = optional (zero).\nEach ticket references one agency, category, violation and disposition; location is optional."];
+  {rank=sink; legend;}
+}
