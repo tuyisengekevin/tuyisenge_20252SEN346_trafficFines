@@ -10,12 +10,13 @@ Project PDB: `I_20252SEN346_KEVIN_PARK_DB`
 |---|---|---|
 | Project PDB | `I_20252SEN346_KEVIN_PARK_DB` — `READ WRITE` | Verified |
 | Administrator | `KEVIN_ADMIN` — `OPEN` | Verified |
+| Administrator role | `KEVIN_ADMIN` granted `DBA` | Verified |
 | Default tablespace | `PARK_DATA` | Verified |
 | Temporary tablespace | `PARK_TEMP` | Verified |
 | Data tablespace | 100 MB, autoextend YES, maximum 1024 MB | Verified |
 | Index tablespace | 50 MB, autoextend YES, maximum 500 MB | Verified |
 | Temporary tablespace file | 50 MB, autoextend YES, maximum 500 MB | Verified |
-| ARCHIVELOG | Previously verified enabled | Verified |
+| Database logging | `ORACLE` in `ARCHIVELOG` mode | Verified |
 
 ## SQL setup scripts
 
@@ -43,7 +44,6 @@ Add screenshots of the actual SQL Developer query and result to this folder:
 ## Remaining work
 
 - Capture and upload the screenshots listed above.
-- Capture DBA privilege evidence.
 - Complete the required Enterprise Manager Express evidence, or document/use the SQL Developer DBA panel if the course instructions permit that alternative.
 
 This file records verified configuration results; it does not claim that screenshot evidence has already been uploaded.
