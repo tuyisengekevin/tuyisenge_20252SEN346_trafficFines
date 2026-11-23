@@ -1,7 +1,6 @@
 -- ============================================================
 -- File: 05_verify.sql
 -- Project: Parking Violations Analytics and Fine Management System
--- Student: TUYISENGE Kevin | ID: 20252SEN346 | Group: I | Course: SEN346
 -- Description: Final verification of Phase III database setup.
 -- Run as SYSDBA so the required DBA views are accessible.
 -- ============================================================
