@@ -1,15 +1,4 @@
--- ============================================================
--- File: 01_create_pdb.sql
--- Project: Parking Violations Analytics and Fine Management System
--- Student: TUYISENGE Kevin
--- Student ID: 20252SEN346
--- Group: I
--- Course: SEN346
--- Description: Create, open, and save the project Pluggable Database.
--- Run as SYSDBA while connected to CDB$ROOT.
--- IMPORTANT: This is the original creation script. The PDB already
--- exists in the submitted installation; do not run CREATE again there.
--- ============================================================
+
 
 -- 1. Create the project PDB and its administrator account.
 CREATE PLUGGABLE DATABASE I_20252SEN346_KEVIN_PARK_DB
