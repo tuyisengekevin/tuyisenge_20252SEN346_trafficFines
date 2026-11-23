@@ -1,7 +1,6 @@
 -- ============================================================
 -- File: 04_archive_log.sql
 -- Project: Parking Violations Analytics and Fine Management System
--- Student: TUYISENGE Kevin | ID: 20252SEN346 | Group: I | Course: SEN346
 -- Description: Check and document ARCHIVELOG configuration.
 -- Run the verification query as SYSDBA in CDB$ROOT.
 -- ============================================================
