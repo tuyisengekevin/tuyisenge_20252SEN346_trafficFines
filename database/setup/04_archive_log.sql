@@ -1,32 +1,33 @@
 -- ============================================================
 -- File: 04_archive_log.sql
+-- Student: TUYISENGE Kevin
+-- Student ID: 20252SEN346
+-- Group: I
 -- Project: Parking Violations Analytics and Fine Management System
--- Description: Check and document ARCHIVELOG configuration.
--- Run the verification query as SYSDBA in CDB$ROOT.
+-- Phase: III - Database (PDB) Creation
+-- Description: Verify CDB ARCHIVELOG mode and document the local-only activation procedure.
 -- ============================================================
 
--- ARCHIVELOG is a CDB-wide setting and affects every PDB in this CDB.
--- It was enabled on the student's own local Oracle installation.
--- Do not change this setting on a shared university/lab server
--- without explicit authorization.
+-- Run the verification query as SYSDBA in CDB$ROOT.
+-- ARCHIVELOG is a CDB-wide setting, not a setting for one PDB.
+-- All PDBs share the CDB redo-log infrastructure, so one PDB cannot
+-- independently enable or disable archive logging.
+-- Enabling it requires SYSDBA access and a controlled restart of the whole CDB.
+-- Never change this setting on a shared university/lab server.
 
--- Check the current archive log mode.
 SELECT NAME, LOG_MODE
 FROM V$DATABASE;
 
--- Verified result for this installation:
--- NAME   LOG_MODE
--- ORACLE ARCHIVELOG
-
--- If another local installation reports NOARCHIVELOG, consult the
--- instructor/database administrator before changing the CDB mode.
--- Enabling ARCHIVELOG requires a controlled database restart in
--- MOUNT mode, changing the database log mode, and reopening the CDB.
--- These administrative restart steps are intentionally not executed
--- by this verification script.
-
--- Explanation:
--- ARCHIVELOG mode preserves archived redo log files after log switches.
--- Archived redo logs can be used with backups to recover database changes.
--- This improves recovery options after a database or storage failure.
--- ARCHIVELOG is configured for the whole CDB, not just this project PDB.
+-- This installation was verified in ARCHIVELOG mode.
+-- The following steps are included for documentation only.
+-- They are for the student's own local installation and must NOT
+-- be run on a shared lab server. They are not needed when LOG_MODE
+-- already reports ARCHIVELOG.
+--
+-- SHUTDOWN IMMEDIATE;
+-- STARTUP MOUNT;
+-- ALTER DATABASE ARCHIVELOG;
+-- ALTER DATABASE OPEN;
+--
+-- After restarting, reconnect as SYSDBA in CDB$ROOT and verify:
+-- SELECT NAME, LOG_MODE FROM V$DATABASE;

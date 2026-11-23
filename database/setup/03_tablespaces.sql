@@ -1,15 +1,20 @@
 -- ============================================================
 -- File: 03_tablespaces.sql
+-- Student: TUYISENGE Kevin
+-- Student ID: 20252SEN346
+-- Group: I
 -- Project: Parking Violations Analytics and Fine Management System
--- Description: Create project tablespaces and configure user quotas.
+-- Phase: III - Database (PDB) Creation
+-- Description: Create the project data, index and temporary tablespaces and set administrator quotas.
+-- ============================================================
+
 -- Run as SYSDBA inside I_20252SEN346_KEVIN_PARK_DB.
 -- Initial-setup script: do not rerun CREATE statements if the
 -- tablespaces already exist.
--- ============================================================
 
 ALTER SESSION SET CONTAINER = I_20252SEN346_KEVIN_PARK_DB;
 
--- Main data tablespace: 100 MB initial, 10 MB growth, 1 GB maximum.
+-- Data tablespace: 100 MB initial, 10 MB growth, 1 GB maximum.
 CREATE TABLESPACE park_data
   DATAFILE SIZE 100M
   AUTOEXTEND ON NEXT 10M
@@ -27,12 +32,10 @@ CREATE TEMPORARY TABLESPACE park_temp
   AUTOEXTEND ON NEXT 10M
   MAXSIZE 500M;
 
--- Assign the administrator's default and temporary tablespaces.
 ALTER USER kevin_admin
   DEFAULT TABLESPACE park_data
   TEMPORARY TABLESPACE park_temp;
 
--- Grant unlimited quota on the two permanent project tablespaces.
 ALTER USER kevin_admin QUOTA UNLIMITED ON park_data;
 ALTER USER kevin_admin QUOTA UNLIMITED ON park_idx;
 
@@ -47,7 +50,8 @@ SELECT TABLESPACE_NAME,
        AUTOEXTENSIBLE,
        ROUND(MAXBYTES / 1024 / 1024) AS MAX_SIZE_MB
 FROM DBA_DATA_FILES
-WHERE TABLESPACE_NAME IN ('PARK_DATA', 'PARK_IDX');
+WHERE TABLESPACE_NAME IN ('PARK_DATA', 'PARK_IDX')
+ORDER BY TABLESPACE_NAME;
 
 -- Verify temporary tablespace size and autoextend settings.
 SELECT TABLESPACE_NAME,
@@ -61,4 +65,5 @@ WHERE TABLESPACE_NAME = 'PARK_TEMP';
 SELECT TABLESPACE_NAME, USERNAME, MAX_BYTES
 FROM DBA_TS_QUOTAS
 WHERE USERNAME = 'KEVIN_ADMIN'
-  AND TABLESPACE_NAME IN ('PARK_DATA', 'PARK_IDX');
+  AND TABLESPACE_NAME IN ('PARK_DATA', 'PARK_IDX')
+ORDER BY TABLESPACE_NAME;

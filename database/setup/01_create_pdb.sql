@@ -1,24 +1,33 @@
+-- ============================================================
+-- File: 01_create_pdb.sql
+-- Student: TUYISENGE Kevin
+-- Student ID: 20252SEN346
+-- Group: I
+-- Project: Parking Violations Analytics and Fine Management System
+-- Phase: III - Database (PDB) Creation
+-- Description: Create and open the project pluggable database.
+-- ============================================================
 
+-- Run once as SYSDBA from CDB$ROOT.
+-- Oracle stores unquoted identifiers in uppercase; the lowercase
+-- spelling below follows the lecturer's required naming convention.
+-- PDB name: i_20252sen346_kevin_park_db (27 characters).
 
--- 1. Create the project PDB and its administrator account.
-CREATE PLUGGABLE DATABASE I_20252SEN346_KEVIN_PARK_DB
+CREATE PLUGGABLE DATABASE i_20252sen346_kevin_park_db
   ADMIN USER kevin_admin
   IDENTIFIED BY kevin;
 
--- 2. Open the PDB for normal read/write operations.
-ALTER PLUGGABLE DATABASE I_20252SEN346_KEVIN_PARK_DB
+ALTER PLUGGABLE DATABASE i_20252sen346_kevin_park_db
   OPEN READ WRITE;
 
--- 3. Save the open state so Oracle opens this PDB after CDB restart.
-ALTER PLUGGABLE DATABASE I_20252SEN346_KEVIN_PARK_DB
+ALTER PLUGGABLE DATABASE i_20252sen346_kevin_park_db
   SAVE STATE;
 
--- 4. Verify that the PDB is open.
+-- Verify that the PDB is open and its state is saved.
 SELECT NAME, OPEN_MODE
 FROM V$PDBS
 WHERE NAME = 'I_20252SEN346_KEVIN_PARK_DB';
 
--- 5. Verify that the open state was saved.
 SELECT CON_NAME, STATE
 FROM DBA_PDB_SAVED_STATES
 WHERE CON_NAME = 'I_20252SEN346_KEVIN_PARK_DB';

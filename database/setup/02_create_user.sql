@@ -1,15 +1,18 @@
 -- ============================================================
 -- File: 02_create_user.sql
+-- Student: TUYISENGE Kevin
+-- Student ID: 20252SEN346
+-- Group: I
 -- Project: Parking Violations Analytics and Fine Management System
--- Description: Configure the PDB administrator and grant DBA.
--- Run as SYSDBA. The administrator was created by 01_create_pdb.sql.
--- This script configures that account; it does not create a duplicate.
+-- Phase: III - Database (PDB) Creation
+-- Description: Grant the DBA role to the PDB administrator created during PDB setup.
 -- ============================================================
+
+-- Run as SYSDBA. The PDB administrator was created by 01_create_pdb.sql.
+-- This script configures the existing account; it does not create a duplicate.
 
 ALTER SESSION SET CONTAINER = I_20252SEN346_KEVIN_PARK_DB;
 
--- The lab account already exists and is unlocked in the completed setup.
--- Grant the required database administrator role inside the project PDB.
 GRANT DBA TO kevin_admin;
 
 -- Verify the administrator account and role.
