@@ -1,7 +1,6 @@
 -- ============================================================
 -- File: 03_tablespaces.sql
 -- Project: Parking Violations Analytics and Fine Management System
--- Student: TUYISENGE Kevin | ID: 20252SEN346 | Group: I | Course: SEN346
 -- Description: Create project tablespaces and configure user quotas.
 -- Run as SYSDBA inside I_20252SEN346_KEVIN_PARK_DB.
 -- Initial-setup script: do not rerun CREATE statements if the
