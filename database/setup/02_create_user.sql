@@ -1,7 +1,6 @@
 -- ============================================================
 -- File: 02_create_user.sql
 -- Project: Parking Violations Analytics and Fine Management System
--- Student: TUYISENGE Kevin | ID: 20252SEN346 | Group: I | Course: SEN346
 -- Description: Configure the PDB administrator and grant DBA.
 -- Run as SYSDBA. The administrator was created by 01_create_pdb.sql.
 -- This script configures that account; it does not create a duplicate.
