@@ -1,18 +1,19 @@
 # Phase III Screenshots
 
-Upload your genuine Oracle screenshots and query-output evidence in this folder.
+Genuine Oracle screenshots uploaded to this folder:
 
-Use these suggested filenames:
+1. `01_pdb_status.png` — PDB name and READ WRITE status
+2. `02_admin_user.png` — administrator account and tablespace defaults
+3. `03_dba_privilege.png` — DBA role grant
+4. `04_tablespaces.png` — PARK_DATA, PARK_IDX and PARK_TEMP configuration
+5. `05_archive_log.png` — CDB ARCHIVELOG mode
+6. `06_em_express.png` — configured HTTPS port evidence
+7. `07_sql_developer_dba_panel.png` — SQL Developer DBA panel, used as the assignment-permitted alternative to EM Express UI evidence
 
-1. `01_pdb_status.png`
-2. `02_admin_user.png`
-3. `03_dba_privilege.png`
-4. `04_tablespaces.png`
-5. `05_archive_log.png`
-6. `06_em_express.png`
+All seven image files have been verified in the repository tree. Use the screenshots as evidence of the configuration shown; they do not imply that the EM Express browser page itself was successfully opened.
 
-Each screenshot should clearly identify the project PDB. Include the date and time where possible.
+## HTTPS port exception
 
-The project PDB currently reports HTTPS port 5547. The required port based on the student ID is 5546, but Oracle rejected 5546 with ORA-44718 (XDB port conflict), so 5547 was retained. Screenshot 06 may show the port query, but a port query by itself is not proof that the EM Express interface is accessible. If EM Express is unavailable, capture the assignment-permitted SQL Developer DBA panel showing the PDB, user and tablespace information.
+The assignment-derived port is 5546 (student ID ends in 46). Oracle rejected 5546 with ORA-44718 (XDB port conflict), so the project's existing HTTPS port 5547 was retained rather than changing another container's XDB configuration. This deviation is documented in [Phase III notes](../../docs/phase3/README.md).
 
-Only upload actual screenshots from your own Oracle environment. The student reports capturing and uploading the six named screenshots. Please confirm the image files are present in this folder. The EM Express/DBA panel UI evidence may still need to be added if Screenshot 06 only shows the HTTPS port query.
+Only use authentic screenshots from the student's Oracle environment. Include date/time where visible and do not fabricate or edit query results.
