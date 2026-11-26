@@ -67,11 +67,12 @@ WHERE USERNAME = 'KEVIN_ADMIN'
   AND TABLESPACE_NAME IN ('PARK_DATA', 'PARK_IDX')
 ORDER BY TABLESPACE_NAME;
 
--- Expected configuration:
+-- Expected verified configuration:
 -- PDB: I_20252SEN346_KEVIN_PARK_DB, READ WRITE, saved state OPEN
 -- User: KEVIN_ADMIN; default PARK_DATA; temporary PARK_TEMP; DBA role
 -- PARK_DATA: 100 MB initial; autoextend ON; maximum 1024 MB
 -- PARK_IDX: 50 MB initial; autoextend ON; maximum 500 MB
 -- PARK_TEMP: 50 MB initial; autoextend ON; maximum 500 MB
 -- CDB log mode: ARCHIVELOG
--- PDB HTTPS port: 5546 (student ID 20252SEN346 ends in 46)
+-- Required PDB HTTPS port: 5546; actual verified port: 5547.
+-- 5546 returned ORA-44718 (XDB port conflict); 5547 was retained.
