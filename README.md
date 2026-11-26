@@ -39,7 +39,7 @@ The raw CSV is retained unchanged. It has no duplicate rows, duplicate ticket nu
 ## Phase II — Data sourcing and normalization
 
 - [Normalization UNF → 1NF → 2NF → 3NF](docs/design/normalization.md)
-- [Logical ERD (PNG)](docs/design/erd.png)
+- [Phase IV final ERD (SVG)](docs/design/erd_phase4.svg) and [editable source](docs/design/erd.dot)
 - [Data dictionary and 31-field mapping](docs/design/data_dictionary.md)
 - [Five-minute demonstration guide](docs/design/phase2_demo_guide.md)
 
