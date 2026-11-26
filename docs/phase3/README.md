@@ -9,7 +9,7 @@
 
 ## Purpose
 
-Phase III creates and configures the Oracle Pluggable Database (PDB) that will host the capstone project. It covers the PDB, administrator account, tablespaces, archive logging, Enterprise Manager Express (EM Express), and verification evidence.
+Phase III creates and configures the Oracle Pluggable Database (PDB) that hosts the capstone project. It covers the PDB, administrator account, tablespaces, archive logging, EM Express configuration and verification evidence.
 
 ## Required setup scripts
 
@@ -24,61 +24,47 @@ Run the scripts in `database/setup/` in the appropriate Oracle container and wit
 | `05_verify.sql` | Verify PDB, administrator, tablespaces, quotas, archive mode and HTTPS port | SYSDBA; starts in CDB$ROOT |
 | `06_configure_em_express.sql` | Configure the PDB HTTPS port | SYSDBA inside the project PDB |
 
-**Important:** The five numbered scripts 01–05 are the required Phase III submission scripts. Script 06 is an additional configuration helper for the EM Express requirement. Do not rerun PDB or tablespace CREATE statements on an installation where those objects already exist.
+**Important:** Scripts 01–05 are the required Phase III submission scripts. Script 06 is an additional EM Express configuration helper. Do not rerun PDB or tablespace CREATE statements on an installation where those objects already exist.
 
-## Required configuration
+## Required configuration and observed result
 
-| Item | Required project setting |
-|---|---|
-| PDB | `I_20252SEN346_KEVIN_PARK_DB` |
-| PDB state | Open READ WRITE and saved to reopen after restart |
-| Administrator | `KEVIN_ADMIN` |
-| Administrator role | `DBA` |
-| Default tablespace | `PARK_DATA` |
-| Temporary tablespace | `PARK_TEMP` |
-| Data tablespace | 100 MB initial; AUTOEXTEND ON NEXT 10 MB; MAXSIZE 1 GB |
-| Index tablespace | 50 MB initial; AUTOEXTEND ON NEXT 10 MB; MAXSIZE 500 MB |
-| Temporary tablespace | 50 MB initial; AUTOEXTEND ON NEXT 10 MB; MAXSIZE 500 MB |
-| Quotas | Unlimited on PARK_DATA and PARK_IDX |
-| Archive logging | Check and document the CDB's current mode |
-| EM Express HTTPS port | Requested: 5546 (student ID ends in 46); actual project PDB port: 5547 due to ORA-44718 conflict |
+| Item | Required setting | Observed result |
+|---|---|---|
+| PDB | `I_20252SEN346_KEVIN_PARK_DB` | READ WRITE; saved state OPEN |
+| Administrator | `KEVIN_ADMIN` with DBA role | Verified |
+| Default tablespace | `PARK_DATA` | Verified |
+| Temporary tablespace | `PARK_TEMP` | Verified |
+| Data tablespace | 100 MB; AUTOEXTEND ON NEXT 10 MB; MAXSIZE 1 GB | Verified |
+| Index tablespace | 50 MB; AUTOEXTEND ON NEXT 10 MB; MAXSIZE 500 MB | Verified |
+| Temporary tablespace | 50 MB; AUTOEXTEND ON NEXT 10 MB; MAXSIZE 500 MB | Verified |
+| Quotas | Unlimited on PARK_DATA and PARK_IDX | Verified |
+| Archive logging | CDB current mode | `ORCLE` is in ARCHIVELOG |
+| EM Express HTTPS port | 5546 (ID ends in 46) | 5547 retained; see documented exception |
 
 ## Archive logging explanation
 
 ARCHIVELOG is configured at the Container Database (CDB) level, not independently for each Pluggable Database (PDB). PDBs share the CDB's redo-log infrastructure. Therefore, a single PDB cannot independently enable or disable ARCHIVELOG mode. Changing the mode requires SYSDBA privileges and a controlled restart of the entire CDB. The activation commands in the SQL script are documentation for a student's own local installation only; do not run them on a shared university server.
 
-## Evidence to capture
+## Screenshot evidence
 
-Save genuine screenshots in `screenshots/phase3/`. Use SQL Developer query results or EM Express/SQL Developer DBA panel evidence as permitted by the assignment.
+All seven genuine screenshot files have been verified in `screenshots/phase3/`:
 
-| Suggested filename | What the screenshot must demonstrate |
-|---|---|
-| `01_pdb_status.png` | Project PDB name and READ WRITE status; show saved state where possible |
-| `02_admin_user.png` | KEVIN_ADMIN account, account status, default and temporary tablespaces |
-| `03_dba_privilege.png` | DBA role granted to KEVIN_ADMIN |
-| `04_tablespaces.png` | PARK_DATA, PARK_IDX and PARK_TEMP sizes, autoextend and maximum sizes |
-| `05_archive_log.png` | CDB name and ARCHIVELOG mode |
-| `06_em_express.png` | EM Express login/session and tablespaces page, showing PDB and username; or the SQL Developer DBA panel alternative if EM Express is unavailable |
+- `01_pdb_status.png`
+- `02_admin_user.png`
+- `03_dba_privilege.png`
+- `04_tablespaces.png`
+- `05_archive_log.png`
+- `06_em_express.png` — port configuration evidence
+- `07_sql_developer_dba_panel.png` — SQL Developer DBA panel alternative evidence
 
-Include the date and time in the evidence where possible. Do not create illustrative or fabricated screenshots.
+The DBA panel screenshot is the assignment-permitted alternative when EM Express is unavailable. The presence of a port query screenshot does not claim that the EM Express browser page was accessible.
 
-## Completion status
+## Phase III status
 
-The repository contains the setup scripts and this documentation. The configuration has been checked during project work, but Phase III evidence is not considered complete until the required screenshots/query outputs have actually been captured and uploaded.
+**Configuration and repository evidence are reviewed and documented, with one exception:** the assignment requires HTTPS port 5546. Oracle returned **ORA-44718: Port conflict in XDB Configuration file** when setting 5546. The project's existing port **5547** was retained to avoid changing another container's XDB configuration. The actual port was re-queried and returned 5547. This is a transparent deviation; the exact port requirement is not claimed as satisfied.
 
-## Related files
-
-- SQL scripts: `database/setup/`
-- Screenshot upload folder: `screenshots/phase3/`
-- Detailed evidence notes: `docs/evidence/phase3/README.md`
+The seven screenshot files and supporting SQL scripts are present in the repository. See [evidence summary](../evidence/phase3/README.md).
 
 ## Next phase
 
-Phase IV covers the logical model implementation: final ERD and data dictionary alignment, table creation, constraints, indexes, views, staging, data cleaning, loading and validation. The project table-creation script is kept separate from the Phase III PDB setup scripts.
-
-
-## HTTPS port exception (verified 2026-11-26)
-
-The assignment-derived HTTPS port is **5546**. When setting the project PDB port to 5546, Oracle returned **ORA-44718: Port conflict in XDB Configuration file**. The project PDB's existing HTTPS port **5547** was retained to avoid changing another container's XDB configuration. The port was re-queried and returned 5547. This is a documented deviation from the requested port, not a claim that 5546 was configured.
-
-The screenshot named `06_em_express.png` records the configured port. A port query alone does not prove that the EM Express web interface is accessible; if EM Express is unavailable, capture the assignment-permitted SQL Developer DBA panel evidence and include it with the submission.
+Phase IV covers implementation of the logical model: final ERD and data dictionary alignment, table creation, constraints, indexes, staging, data cleaning, loading and validation. The project table-creation script is maintained separately from the Phase III PDB setup scripts.
