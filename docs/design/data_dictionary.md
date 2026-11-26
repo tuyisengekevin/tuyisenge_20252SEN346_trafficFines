@@ -91,16 +91,32 @@ TICKET_NUMBER and MULTI_OWNER_NUMBER are identifiers, not quantities. MULTI_OWNE
 
 Source metadata describes stages as: 1 late penalty; 2 not currently used; 3 collection fees; 4 appeals fees; 5 transcript fees. Stages 2–5 are all zero in this extract but remain represented for traceability.
 
-## 8. Relationships, cardinality and optionality
+## 8. Final Phase IV relationships, cardinality, optionality and delete rules
 
-| Parent table | Child table | Relationship | Optionality |
-|---|---|---|---|
-| ISSUING_AGENCY | PARKING_TICKET | One-to-many | Every ticket references exactly one agency; an agency may have zero or many tickets. |
-| VIOLATION_TYPE | PARKING_TICKET | One-to-many | Every ticket references exactly one category; a category may be used by zero or many tickets. |
-| VIOLATION | PARKING_TICKET | One-to-many | Every ticket references exactly one violation code; a code may appear on zero or many tickets. |
-| DISPOSITION | PARKING_TICKET | One-to-many | Every ticket references one disposition code in this extract; a code may apply to zero or many tickets. |
-| LOCATION | PARKING_TICKET | One-to-many | A ticket may reference zero or one location; a location may be referenced by zero or many tickets. |
-| PARKING_TICKET | TICKET_PENALTY | One-to-five | Each ticket has five stage rows; each stage row belongs to exactly one ticket. |
+The final Phase IV ERD is maintained in [erd.dot](erd.dot). It reflects the seven-table Oracle schema created by `database/setup/07_create_tables.sql`, with the following referential actions selected for the Phase IV implementation.
+
+| FK constraint | Parent table | Child table | Child FK nullable? | Cardinality / optionality | Delete rule | Reason |
+|---|---|---|---|---|---|---|
+| FK_TICKET_AGENCY | ISSUING_AGENCY | PARKING_TICKET | No | Agency 0..N tickets; each ticket exactly 1 agency | NO ACTION (Oracle default) | Retain agency reference while tickets exist; reject deleting a referenced agency. |
+| FK_TICKET_VIOLATION_TYPE | VIOLATION_TYPE | PARKING_TICKET | No | Category 0..N tickets; each ticket exactly 1 category | NO ACTION | Preserve category integrity and reject deletion while referenced. |
+| FK_TICKET_VIOLATION | VIOLATION | PARKING_TICKET | No | Violation code 0..N tickets; each ticket exactly 1 code | NO ACTION | Keep ticket citation history intact. |
+| FK_TICKET_DISPOSITION | DISPOSITION | PARKING_TICKET | No | Disposition 0..N tickets; each ticket exactly 1 disposition code | NO ACTION | Do not delete a disposition code used by ticket history. |
+| FK_TICKET_LOCATION | LOCATION | PARKING_TICKET | Yes | Location 0..N tickets; each ticket 0..1 location | ON DELETE SET NULL | A location can be removed while preserving the ticket; ticket LOCATION_ID becomes NULL. |
+| FK_PENALTY_TICKET | PARKING_TICKET | TICKET_PENALTY | No | Ticket 0..5 penalty stage rows; each stage exactly 1 ticket | ON DELETE CASCADE | Penalty-stage rows are dependent details and should not remain without their ticket. |
+
+**Implementation status:** The existing table-creation script currently defines foreign keys with Oracle's default NO ACTION. The SET NULL and CASCADE actions above are the selected Phase IV target rules and must be applied by the dedicated constraints script (drop/recreate only the relevant foreign keys) and verified with the referential-action tests. Do not claim those two actions are active until the script has been run successfully.
+
+Oracle does not support `ON UPDATE CASCADE`. Primary/foreign key updates should normally be avoided for these stable identifiers. If a key correction is necessary, update child keys and parent key in a controlled transaction with constraints handled safely, or use a stable surrogate key and update descriptive/business attributes instead.
+
+## 8.1 Constraint inventory from the existing table script
+
+The following named constraints are declared in `database/setup/07_create_tables.sql`:
+
+- Primary keys: `PK_ISSUING_AGENCY`, `PK_VIOLATION_TYPE`, `PK_VIOLATION`, `PK_DISPOSITION`, `PK_LOCATION`, `PK_PARKING_TICKET`, `PK_TICKET_PENALTY`.
+- Unique constraints: `UQ_AGENCY_SHORT`, `UQ_LOCATION_TEXT`, `UQ_TICKET_SOURCE_OBJECT`.
+- Foreign keys: `FK_TICKET_VIOLATION_TYPE`, `FK_TICKET_AGENCY`, `FK_TICKET_VIOLATION`, `FK_TICKET_LOCATION`, `FK_TICKET_DISPOSITION`, `FK_PENALTY_TICKET`.
+- Check constraints: `CK_VIOLATION_TYPE_CODE`, `CK_LOCATION_LATITUDE`, `CK_LOCATION_LONGITUDE`, `CK_TICKET_ISSUE_TIME`, `CK_TICKET_FINE_AMOUNT`, `CK_TICKET_TOTAL_PAID`, `CK_PENALTY_STAGE`, `CK_PENALTY_AMOUNT`.
+- NOT NULL constraints are declared on every required column in the table definitions. Oracle may generate system names for these column-level NOT NULL constraints; Phase IV will explicitly review naming and the data dictionary status as required by the assignment.
 
 ## 9. Raw-field mapping and Phase IV conversion checklist
 
