@@ -93,7 +93,7 @@ Source metadata describes stages as: 1 late penalty; 2 not currently used; 3 col
 
 ## 8. Final Phase IV relationships, cardinality, optionality and delete rules
 
-The final Phase IV ERD is maintained in [erd.dot](erd.dot). It reflects the seven-table Oracle schema created by `database/setup/07_create_tables.sql`, with the following referential actions selected for the Phase IV implementation.
+The final Phase IV ERD is maintained in [final ERD (SVG)](erd_phase4.svg) and its [editable Graphviz source](erd.dot). It reflects the seven-table Oracle schema created by `database/setup/07_create_tables.sql`, with the following referential actions selected for the Phase IV implementation.
 
 | FK constraint | Parent table | Child table | Child FK nullable? | Cardinality / optionality | Delete rule | Reason |
 |---|---|---|---|---|---|---|
