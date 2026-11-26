@@ -1,9 +1,9 @@
-# Phase 0 – Research and Proposal
+# Phase 0 — Research and Proposal
 
-Place the Phase 0 deliverables in this folder:
+The Phase 0 materials are stored in their topic folders:
 
-- `research_log.md` – research sources and findings.
-- `Revised_Phase0_Proposal_Parking_Violations.pdf` – project proposal.
-- `Revised_Phase0_Presentation_Parking_Violations.pptx` – project presentation.
+- [Research log](../research/research_log.md)
+- [Project proposal PDF](../proposal/project_proposal.pdf)
+- [Project presentation PowerPoint](../presentation/project_presentation.pptx)
 
-The proposal PDF and presentation PowerPoint still need to be uploaded to this folder.
+The proposal and presentation files are present in the repository. Keep this index updated if revised deliverables are added.
