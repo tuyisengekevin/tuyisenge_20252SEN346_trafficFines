@@ -26,7 +26,9 @@ Phase IV requires:
 - [x] Seven-table logical design and existing Oracle table-creation script are in the repository.
 - [x] Existing seven-table script was run successfully in the project PDB (reported by the student).
 - [x] Phase III screenshots verified in the GitHub repository.
-- [ ] Final ERD updated to exactly match the Oracle schema and delete rules.
+- [x] Final ERD source updated to the seven-table Oracle schema; rendered SVG added at `docs/design/erd_phase4.svg`.
+- [x] Relationship cardinality, optionality and selected delete rules documented in the ERD and data dictionary.
+- [ ] Apply the planned `ON DELETE SET NULL` and `ON DELETE CASCADE` rules in the constraints script and verify with tests. The existing constraints still use NO ACTION until changed.
 - [ ] Complete Phase IV data dictionary.
 - [ ] Required DDL scripts separated into the assignment's `database/ddl/` deliverables.
 - [ ] Staging, cleaning, parent-first load and validation scripts.
