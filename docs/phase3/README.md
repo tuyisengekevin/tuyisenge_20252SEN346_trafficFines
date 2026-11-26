@@ -41,7 +41,7 @@ Run the scripts in `database/setup/` in the appropriate Oracle container and wit
 | Temporary tablespace | 50 MB initial; AUTOEXTEND ON NEXT 10 MB; MAXSIZE 500 MB |
 | Quotas | Unlimited on PARK_DATA and PARK_IDX |
 | Archive logging | Check and document the CDB's current mode |
-| EM Express HTTPS port | 5546 (student ID ends in 46) |
+| EM Express HTTPS port | Requested: 5546 (student ID ends in 46); actual project PDB port: 5547 due to ORA-44718 conflict |
 
 ## Archive logging explanation
 
@@ -75,3 +75,10 @@ The repository contains the setup scripts and this documentation. The configurat
 ## Next phase
 
 Phase IV covers the logical model implementation: final ERD and data dictionary alignment, table creation, constraints, indexes, views, staging, data cleaning, loading and validation. The project table-creation script is kept separate from the Phase III PDB setup scripts.
+
+
+## HTTPS port exception (verified 2026-11-26)
+
+The assignment-derived HTTPS port is **5546**. When setting the project PDB port to 5546, Oracle returned **ORA-44718: Port conflict in XDB Configuration file**. The project PDB's existing HTTPS port **5547** was retained to avoid changing another container's XDB configuration. The port was re-queried and returned 5547. This is a documented deviation from the requested port, not a claim that 5546 was configured.
+
+The screenshot named `06_em_express.png` records the configured port. A port query alone does not prove that the EM Express web interface is accessible; if EM Express is unavailable, capture the assignment-permitted SQL Developer DBA panel evidence and include it with the submission.
