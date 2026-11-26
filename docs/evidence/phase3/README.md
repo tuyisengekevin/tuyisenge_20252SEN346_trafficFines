@@ -16,7 +16,8 @@ Project PDB: `I_20252SEN346_KEVIN_PARK_DB`
 | Data tablespace | 100 MB, autoextend YES, maximum 1024 MB | Verified |
 | Index tablespace | 50 MB, autoextend YES, maximum 500 MB | Verified |
 | Temporary tablespace file | 50 MB, autoextend YES, maximum 500 MB | Verified |
-| Database logging | `ORACLE` in `ARCHIVELOG` mode | Verified |
+| Database logging | `ORCLE` in `ARCHIVELOG` mode | Verified |
+| Project PDB HTTPS port | 5547; 5546 rejected with ORA-44718 port conflict | Verified; deviation documented |
 
 ## SQL setup scripts
 
@@ -43,7 +44,8 @@ Add screenshots of the actual SQL Developer query and result to this folder:
 
 ## Remaining work
 
-- Capture and upload the screenshots listed above.
-- Complete the required Enterprise Manager Express evidence, or document/use the SQL Developer DBA panel if the course instructions permit that alternative.
+- Confirm all six screenshot image files are present in `screenshots/phase3/` (the student reports capturing/uploading them).
+- Capture the required EM Express UI evidence, or the assignment-permitted SQL Developer DBA panel evidence, if the current `06_em_express.png` only shows the HTTPS port query.
+- Include the documented port deviation: requested 5546, retained 5547 because setting 5546 raised ORA-44718.
 
 This file records verified configuration results; it does not claim that screenshot evidence has already been uploaded.
