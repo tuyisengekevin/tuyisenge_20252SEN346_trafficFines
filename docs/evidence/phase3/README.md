@@ -9,6 +9,7 @@ Project PDB: `I_20252SEN346_KEVIN_PARK_DB`
 | Requirement | Verified result | Status |
 |---|---|---|
 | Project PDB | `I_20252SEN346_KEVIN_PARK_DB` — `READ WRITE` | Verified |
+| Saved PDB state | `OPEN` | Verified |
 | Administrator | `KEVIN_ADMIN` — `OPEN` | Verified |
 | Administrator role | `KEVIN_ADMIN` granted `DBA` | Verified |
 | Default tablespace | `PARK_DATA` | Verified |
@@ -30,22 +31,24 @@ The setup scripts are maintained in [database/setup](../../database/setup/):
 5. `05_verify.sql`
 6. `06_configure_em_express.sql`
 
-The table-creation script `07_create_tables.sql` belongs to the next implementation stage.
+The table-creation script `07_create_tables.sql` is the Phase IV implementation script, separate from Phase III configuration.
 
-## Screenshot evidence checklist
+## Screenshot evidence
 
-Add screenshots of the actual SQL Developer query and result to this folder:
+All seven screenshot files are present in [screenshots/phase3](../../screenshots/phase3/):
 
-- [ ] `phase3_pdb_status.png` — PDB name and READ WRITE mode
-- [ ] `phase3_admin_user.png` — administrator account status and tablespaces
-- [ ] `phase3_tablespaces.png` — PARK_DATA, PARK_IDX and PARK_TEMP sizes and autoextend limits
-- [ ] `phase3_archivelog.png` — ARCHIVELOG mode
-- [ ] `phase3_dba_privilege.png` — DBA role grant to KEVIN_ADMIN
+- `01_pdb_status.png`
+- `02_admin_user.png`
+- `03_dba_privilege.png`
+- `04_tablespaces.png`
+- `05_archive_log.png`
+- `06_em_express.png`
+- `07_sql_developer_dba_panel.png`
 
-## Remaining work
+The SQL Developer DBA panel screenshot is included as the assignment-permitted alternative evidence. A port query does not establish that the EM Express browser interface opened successfully.
 
-- Confirm all six screenshot image files are present in `screenshots/phase3/` (the student reports capturing/uploading them).
-- Capture the required EM Express UI evidence, or the assignment-permitted SQL Developer DBA panel evidence, if the current `06_em_express.png` only shows the HTTPS port query.
-- Include the documented port deviation: requested 5546, retained 5547 because setting 5546 raised ORA-44718.
+## Exception to record in the submission
 
-This file records verified configuration results; it does not claim that screenshot evidence has already been uploaded.
+The required port is 5546. Oracle returned ORA-44718 when it was configured, so the existing PDB port 5547 was retained to avoid changing another container's XDB configuration. The project does not claim to have met the exact port requirement; this is a transparent documented deviation.
+
+Phase III evidence files and the port exception are documented. See [Phase III guide](../../docs/phase3/README.md) and [screenshot notes](../../screenshots/phase3/README.md).
