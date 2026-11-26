@@ -1,71 +1,90 @@
 digraph ERD {
-  graph [rankdir=LR, splines=ortho, nodesep=0.55, ranksep=1.15, pad=0.35, bgcolor="white", label="PARKING VIOLATIONS ANALYTICS AND FINE MANAGEMENT SYSTEM — LOGICAL ERD (3NF)", labelloc=t, fontsize=22, fontname="Arial", size="16,10!"];
-  node [shape=plain, fontname="Arial", fontsize=11];
-  edge [fontname="Arial", fontsize=10, color="#34495e", penwidth=1.6, dir=both, arrowtail=crowodot, arrowhead=tee];
+  graph [rankdir=LR, splines=ortho, nodesep=0.45, ranksep=1.0, pad=0.3, bgcolor="white",
+         label="PHASE IV FINAL ERD — PARKING VIOLATIONS ANALYTICS AND FINE MANAGEMENT SYSTEM",
+         labelloc=t, fontsize=20, fontname="Arial", size="18,12!"];
+  node [shape=plain, fontname="Arial", fontsize=10];
+  edge [fontname="Arial", fontsize=9, color="#34495e", penwidth=1.5, dir=both];
 
   ISSUING_AGENCY [label=<
-    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
       <TR><TD BGCOLOR="#dbeafe"><B>ISSUING_AGENCY</B></TD></TR>
-      <TR><TD ALIGN="LEFT">PK  AGENCY_CODE</TD></TR>
-      <TR><TD ALIGN="LEFT">    AGENCY_NAME</TD></TR>
-      <TR><TD ALIGN="LEFT">UQ  AGENCY_SHORT</TD></TR>
+      <TR><TD ALIGN="LEFT">PK, NN AGENCY_CODE NUMBER(5)</TD></TR>
+      <TR><TD ALIGN="LEFT">NN AGENCY_NAME VARCHAR2(150)</TD></TR>
+      <TR><TD ALIGN="LEFT">UQ, NN AGENCY_SHORT VARCHAR2(20)</TD></TR>
     </TABLE>>];
+
   VIOLATION_TYPE [label=<
-    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
       <TR><TD BGCOLOR="#dbeafe"><B>VIOLATION_TYPE</B></TD></TR>
-      <TR><TD ALIGN="LEFT">PK  VIOLATION_TYPE_DESC</TD></TR>
+      <TR><TD ALIGN="LEFT">PK, NN VIOLATION_TYPE_DESC VARCHAR2(1)</TD></TR>
+      <TR><TD ALIGN="LEFT">CK: value IN ('P','V','T','M')</TD></TR>
     </TABLE>>];
+
   VIOLATION [label=<
-    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
       <TR><TD BGCOLOR="#dbeafe"><B>VIOLATION</B></TD></TR>
-      <TR><TD ALIGN="LEFT">PK  VIOLATION_CODE</TD></TR>
-      <TR><TD ALIGN="LEFT">    VIOLATION_PROC_DESC</TD></TR>
+      <TR><TD ALIGN="LEFT">PK, NN VIOLATION_CODE VARCHAR2(10)</TD></TR>
+      <TR><TD ALIGN="LEFT">VIOLATION_PROC_DESC VARCHAR2(500) NULL</TD></TR>
     </TABLE>>];
+
   DISPOSITION [label=<
-    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
       <TR><TD BGCOLOR="#dbeafe"><B>DISPOSITION</B></TD></TR>
-      <TR><TD ALIGN="LEFT">PK  DISPOSITION_CODE</TD></TR>
-      <TR><TD ALIGN="LEFT">    DISPOSITION_TYPE</TD></TR>
-      <TR><TD ALIGN="LEFT">    DISPOSITION_DESC (optional)</TD></TR>
+      <TR><TD ALIGN="LEFT">PK, NN DISPOSITION_CODE NUMBER(5)</TD></TR>
+      <TR><TD ALIGN="LEFT">NN DISPOSITION_TYPE VARCHAR2(30)</TD></TR>
+      <TR><TD ALIGN="LEFT">DISPOSITION_DESC VARCHAR2(500) NULL</TD></TR>
     </TABLE>>];
-  PARKING_TICKET [label=<
-    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
-      <TR><TD BGCOLOR="#fee2e2"><B>PARKING_TICKET</B></TD></TR>
-      <TR><TD ALIGN="LEFT">PK  TICKET_NUMBER</TD></TR>
-      <TR><TD ALIGN="LEFT">UQ  SOURCE_OBJECT_ID</TD></TR>
-      <TR><TD ALIGN="LEFT">FK  VIOLATION_TYPE_DESC</TD></TR>
-      <TR><TD ALIGN="LEFT">FK  AGENCY_CODE</TD></TR>
-      <TR><TD ALIGN="LEFT">FK  VIOLATION_CODE</TD></TR>
-      <TR><TD ALIGN="LEFT">FK  DISPOSITION_CODE</TD></TR>
-      <TR><TD ALIGN="LEFT">FK  LOCATION_ID (optional)</TD></TR>
-      <TR><TD ALIGN="LEFT">    ISSUE_DATE / ISSUE_TIME</TD></TR>
-      <TR><TD ALIGN="LEFT">    FINE_AMOUNT / TOTAL_PAID</TD></TR>
-    </TABLE>>];
+
   LOCATION [label=<
-    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
       <TR><TD BGCOLOR="#dcfce7"><B>LOCATION</B></TD></TR>
-      <TR><TD ALIGN="LEFT">PK  LOCATION_ID</TD></TR>
-      <TR><TD ALIGN="LEFT">UQ  LOCATION_TEXT</TD></TR>
-      <TR><TD ALIGN="LEFT">    MAR_ID / XCOORD / YCOORD</TD></TR>
-      <TR><TD ALIGN="LEFT">    LATITUDE / LONGITUDE</TD></TR>
+      <TR><TD ALIGN="LEFT">PK, NN LOCATION_ID NUMBER identity</TD></TR>
+      <TR><TD ALIGN="LEFT">UQ, NN LOCATION_TEXT VARCHAR2(300)</TD></TR>
+      <TR><TD ALIGN="LEFT">MAR_ID NUMBER(12) NULL</TD></TR>
+      <TR><TD ALIGN="LEFT">XCOORD, YCOORD NUMBER(15,3) NULL</TD></TR>
+      <TR><TD ALIGN="LEFT">LATITUDE NUMBER(10,7) NULL; CK [-90,90]</TD></TR>
+      <TR><TD ALIGN="LEFT">LONGITUDE NUMBER(11,7) NULL; CK [-180,180]</TD></TR>
     </TABLE>>];
+
+  PARKING_TICKET [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
+      <TR><TD BGCOLOR="#fee2e2"><B>PARKING_TICKET</B></TD></TR>
+      <TR><TD ALIGN="LEFT">PK, NN TICKET_NUMBER NUMBER(12)</TD></TR>
+      <TR><TD ALIGN="LEFT">UQ, NN SOURCE_OBJECT_ID NUMBER(12)</TD></TR>
+      <TR><TD ALIGN="LEFT">FK, NN VIOLATION_TYPE_DESC VARCHAR2(1)</TD></TR>
+      <TR><TD ALIGN="LEFT">NN ISSUE_DATE TIMESTAMP WITH TIME ZONE</TD></TR>
+      <TR><TD ALIGN="LEFT">NN ISSUE_TIME NUMBER(4); CK 0–2359</TD></TR>
+      <TR><TD ALIGN="LEFT">FK, NN AGENCY_CODE NUMBER(5)</TD></TR>
+      <TR><TD ALIGN="LEFT">FK, NN VIOLATION_CODE VARCHAR2(10)</TD></TR>
+      <TR><TD ALIGN="LEFT">FK LOCATION_ID NUMBER(12) NULL</TD></TR>
+      <TR><TD ALIGN="LEFT">PLATE_STATE VARCHAR2(10) NULL</TD></TR>
+      <TR><TD ALIGN="LEFT">VEHICLE_TYPE VARCHAR2(50) NULL</TD></TR>
+      <TR><TD ALIGN="LEFT">NN MULTI_OWNER_NUMBER VARCHAR2(30)</TD></TR>
+      <TR><TD ALIGN="LEFT">FK, NN DISPOSITION_CODE NUMBER(5)</TD></TR>
+      <TR><TD ALIGN="LEFT">DISPOSITION_DATE TIMESTAMP WITH TIME ZONE NULL</TD></TR>
+      <TR><TD ALIGN="LEFT">NN FINE_AMOUNT NUMBER(10,2); CK >= 0</TD></TR>
+      <TR><TD ALIGN="LEFT">NN TOTAL_PAID NUMBER(10,2); CK >= 0</TD></TR>
+      <TR><TD ALIGN="LEFT">NN GIS_LAST_MOD_DTTM TIMESTAMP WITH TIME ZONE</TD></TR>
+    </TABLE>>];
+
   TICKET_PENALTY [label=<
-    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7">
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5">
       <TR><TD BGCOLOR="#fef3c7"><B>TICKET_PENALTY</B></TD></TR>
-      <TR><TD ALIGN="LEFT">PK, FK  TICKET_NUMBER</TD></TR>
-      <TR><TD ALIGN="LEFT">PK      PENALTY_STAGE</TD></TR>
-      <TR><TD ALIGN="LEFT">        PENALTY_AMOUNT</TD></TR>
+      <TR><TD ALIGN="LEFT">PK, FK, NN TICKET_NUMBER NUMBER(12)</TD></TR>
+      <TR><TD ALIGN="LEFT">PK, NN PENALTY_STAGE NUMBER(1); CK 1–5</TD></TR>
+      <TR><TD ALIGN="LEFT">NN PENALTY_AMOUNT NUMBER(10,2); CK >= 0</TD></TR>
     </TABLE>>];
 
   {rank=same; ISSUING_AGENCY; VIOLATION_TYPE; VIOLATION; DISPOSITION;}
   {rank=same; LOCATION; TICKET_PENALTY;}
-  ISSUING_AGENCY -> PARKING_TICKET;
-  VIOLATION_TYPE -> PARKING_TICKET;
-  VIOLATION -> PARKING_TICKET;
-  DISPOSITION -> PARKING_TICKET;
-  LOCATION -> PARKING_TICKET [arrowtail=crowodot, arrowhead=odottee];
-  PARKING_TICKET -> TICKET_PENALTY [arrowtail=crow, arrowhead=tee];
 
-  legend [shape=note, fontsize=10, label="KEY: PK = Primary Key   FK = Foreign Key   UQ = Unique alternate key\nCrow's-foot = many; bar = one; circle = optional (zero).\nEach ticket references one agency, category, violation and disposition; location is optional."];
+  ISSUING_AGENCY -> PARKING_TICKET [arrowtail=tee, arrowhead=crow, label="NO ACTION"];
+  VIOLATION_TYPE -> PARKING_TICKET [arrowtail=tee, arrowhead=crow, label="NO ACTION"];
+  VIOLATION -> PARKING_TICKET [arrowtail=tee, arrowhead=crow, label="NO ACTION"];
+  DISPOSITION -> PARKING_TICKET [arrowtail=tee, arrowhead=crow, label="NO ACTION"];
+  LOCATION -> PARKING_TICKET [arrowtail=tee, arrowhead=odotcrow, label="ON DELETE SET NULL"];
+  PARKING_TICKET -> TICKET_PENALTY [arrowtail=tee, arrowhead=crow, label="ON DELETE CASCADE"];
+
+  legend [shape=note, fontsize=9, label="KEY: PK primary key; FK foreign key; UQ unique; CK check; NN NOT NULL.\nCircle = optional (zero); bar = one; crow's-foot = many.\nParent to child: one parent may have zero or many child rows.\nTicket to penalty: 0–5 stages are structurally allowed; each stage requires one ticket.\nDelete rules shown are the Phase IV target rules; implement and test them in 02_constraints.sql / 09_cascade_tests.sql.\nAll indexes are documented separately; FK columns are indexed."];
   {rank=sink; legend;}
 }
