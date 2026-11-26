@@ -54,9 +54,16 @@ The project PDB, administrator, tablespaces, quotas and CDB ARCHIVELOG mode have
 - [Phase III SQL scripts](database/setup/)
 - [Phase III screenshots](screenshots/phase3/)
 
-## Phase IV — Database implementation
+## Phase IV — Tables, data loading and validation
 
-[The seven-table creation script](database/setup/07_create_tables.sql) defines the normalized schema, constraints, indexes and table comments. It creates structure only; staging, cleaning, loading and validation are separate implementation tasks.
+The seven-table structure has been created in the project PDB using [the existing creation script](database/setup/07_create_tables.sql). **Do not rerun it** against the existing schema. Phase IV is in progress: the remaining assignment deliverables include the final ERD and full data dictionary, separate DDL/DML scripts, foreign-key delete-rule demonstrations, constraint tests, indexes, views, text staging, cleaning, loading and validation.
+
+- [Phase IV checklist and progress](docs/phase4/README.md)
+- `database/ddl/` — table/constraint/index/view scripts
+- `database/dml/` — staging, cleaning and loading scripts
+- `database/tests/` — constraint, cascade and validation tests
+- `queries/` — demonstration queries
+- `screenshots/phase4/` — authentic evidence from SQL Developer
 
 ## Innovation
 
@@ -65,12 +72,14 @@ The project PDB, administrator, tablespaces, quotas and CDB ARCHIVELOG mode have
 ## Repository structure
 
 - `data/raw/` — original CSV
-- `database/setup/` — Oracle setup, verification and table scripts
+- `database/setup/` — Oracle setup and Phase III verification scripts
+- `database/ddl/`, `database/dml/`, `database/tests/` — Phase IV implementation scripts
+- `queries/` — Phase IV demonstration queries
 - `docs/design/` — normalization, ERD, data dictionary and demonstration guide
 - `docs/research/` — research log
 - `docs/business process/` — Phase I diagram and explanation
 - `docs/proposal/` and `docs/presentation/` — Phase 0 proposal and presentation
-- `screenshots/phase3/` — Phase III evidence screenshots
+- `screenshots/phase3/` and `screenshots/phase4/` — phase evidence screenshots
 
 ## Scope and limitations
 
