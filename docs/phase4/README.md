@@ -26,10 +26,10 @@ Phase IV requires:
 - [x] Seven-table logical design and existing Oracle table-creation script are in the repository.
 - [x] Existing seven-table script was run successfully in the project PDB (reported by the student).
 - [x] Phase III screenshots verified in the GitHub repository.
-- [x] Final ERD source updated to the seven-table Oracle schema; rendered SVG added at `docs/design/erd_phase4.svg`.
+- [x] Final ERD source and rendered outputs are in `docs/design/`: `erd.dot`, `erd_phase4.svg` and `erd.png`.
 - [x] Relationship cardinality, optionality and selected delete rules documented in the ERD and data dictionary.
+- [x] Phase IV Oracle implementation data dictionary added: [data_dictionary_phase4.md](../design/data_dictionary_phase4.md). The original [logical dictionary and raw-field mapping](../design/data_dictionary.md) are retained.
 - [ ] Apply the planned `ON DELETE SET NULL` and `ON DELETE CASCADE` rules in the constraints script and verify with tests. The existing constraints still use NO ACTION until changed.
-- [ ] Complete Phase IV data dictionary.
 - [ ] Required DDL scripts separated into the assignment's `database/ddl/` deliverables.
 - [ ] Staging, cleaning, parent-first load and validation scripts.
 - [ ] Constraint, referential-action, index and view tests with authentic Oracle output screenshots.
@@ -40,7 +40,7 @@ The already-executed script is `database/setup/07_create_tables.sql`. It creates
 
 ## Work folders
 
-- `database/ddl/` — table definitions, constraints, indexes and views
+- `database/ddl/` — table/constraint/index/view scripts
 - `database/dml/` — staging, cleaning and final loading
 - `database/tests/` — constraint, referential-action and data validation tests
 - `queries/` — demonstration queries
