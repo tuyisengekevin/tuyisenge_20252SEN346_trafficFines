@@ -29,14 +29,16 @@ Phase IV requires:
 - [x] Final ERD source and rendered outputs are in `docs/design/`: `erd.dot`, `erd_phase4.svg` and `erd.png`.
 - [x] Relationship cardinality, optionality and selected delete rules documented in the ERD and data dictionary.
 - [x] Phase IV Oracle implementation data dictionary added: [data_dictionary_phase4.md](../design/data_dictionary_phase4.md). The original [logical dictionary and raw-field mapping](../design/data_dictionary.md) are retained.
-- [ ] Apply the planned `ON DELETE SET NULL` and `ON DELETE CASCADE` rules in the constraints script and verify with tests. The existing constraints still use NO ACTION until changed.
-- [ ] Required DDL scripts separated into the assignment's `database/ddl/` deliverables.
+- [x] Constraints/delete-rule script prepared: [01_constraints_and_delete_rules.sql](../../database/ddl/01_constraints_and_delete_rules.sql). **Not yet run in Oracle.**
+- [x] Referential-action test script prepared: [02_test_referential_actions.sql](../../database/tests/02_test_referential_actions.sql). **Tests are not yet executed; do not mark the delete rules verified until the Oracle output is captured.**
+- [ ] Apply the planned `ON DELETE SET NULL` and `ON DELETE CASCADE` rules in Oracle and verify with tests.
+- [ ] Required DDL scripts for indexes and views, including assignment-required composite and unique/function-based index evidence.
 - [ ] Staging, cleaning, parent-first load and validation scripts.
-- [ ] Constraint, referential-action, index and view tests with authentic Oracle output screenshots.
+- [ ] Constraint rejection tests and authentic Oracle output screenshots.
 
 ## Important: do not recreate existing tables
 
-The already-executed script is `database/setup/07_create_tables.sql`. It creates the seven tables, inline constraints and several FK indexes. Do not run it again in the existing schema; it will fail because the tables already exist. The Phase IV deliverable scripts will be prepared to document and complete the existing implementation safely, with separate clean-install instructions where appropriate.
+The already-executed script is `database/setup/07_create_tables.sql`. It creates the seven tables, inline constraints and several FK indexes. Do not run it again in the existing schema; it will fail because the tables already exist. Phase IV deliverable scripts are being prepared to complete the existing implementation safely, without dropping or recreating the tables.
 
 ## Work folders
 
