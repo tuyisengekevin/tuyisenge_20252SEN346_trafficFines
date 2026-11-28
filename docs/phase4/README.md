@@ -32,9 +32,12 @@ Phase IV requires:
 - [x] Constraints/delete-rule script prepared: [01_constraints_and_delete_rules.sql](../../database/ddl/01_constraints_and_delete_rules.sql). **Not yet run in Oracle.**
 - [x] Referential-action test script prepared: [02_test_referential_actions.sql](../../database/tests/02_test_referential_actions.sql). **Tests are not yet executed; do not mark the delete rules verified until the Oracle output is captured.**
 - [ ] Apply the planned `ON DELETE SET NULL` and `ON DELETE CASCADE` rules in Oracle and verify with tests.
-- [ ] Required DDL scripts for indexes and views, including assignment-required composite and unique/function-based index evidence.
-- [ ] Staging, cleaning, parent-first load and validation scripts.
-- [ ] Constraint rejection tests and authentic Oracle output screenshots.
+- [x] Phase IV index script prepared: [02_phase4_indexes.sql](../../database/ddl/02_phase4_indexes.sql) (composite and function-based indexes; not yet run).
+- [x] Three reporting/protected views prepared: [03_phase4_views.sql](../../database/ddl/03_phase4_views.sql) (not yet created in Oracle).
+- [x] Text-only staging table script prepared: [01_create_staging_table.sql](../../database/dml/01_create_staging_table.sql); the CSV import is not yet done.
+- [x] Staging/import and parent-first load workflow documented: [staging_import_and_load_plan.md](staging_import_and_load_plan.md).
+- [x] Data validation/reconciliation queries prepared: [03_phase4_data_validation.sql](../../database/tests/03_phase4_data_validation.sql) (not yet executed).
+- [ ] Cleaning/conversion and parent-first load SQL; constraint rejection tests; query-plan comparison; authentic Oracle output screenshots.
 
 ## Important: do not recreate existing tables
 
